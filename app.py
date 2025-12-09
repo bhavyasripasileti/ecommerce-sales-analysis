@@ -14,6 +14,11 @@ def load_data():
     df["invoice_date"] = pd.to_datetime(df["invoice_date"], dayfirst=True)
     df["Month"] = df["invoice_date"].dt.to_period("M").astype(str)
     df["Total_Amount"] = df["quantity"] * df["price"]
+
+    bins = [10, 20, 30, 40, 50, 60, 70, 80]
+    labels = ["10–19", "20–29", "30–39", "40–49", "50–59", "60–69", "70–79"]
+    df["Age_Group"] = pd.cut(df["age"], bins=bins, labels=labels, right=False)
+
     return df
 
 df = load_data()
@@ -91,12 +96,21 @@ fig_month = px.line(
 )
 col7.plotly_chart(fig_month, use_container_width=True)
 
-fig_age = px.histogram(
-    filtered_df,
-    x="age",
-    nbins=20,
-    title="Customer Age Distribution"
+age_group_df = (
+    filtered_df.groupby("Age_Group")["customer_id"]
+    .nunique()
+    .reset_index(name="Unique_Customers")
+    .dropna()
 )
+
+fig_age = px.bar(
+    age_group_df,
+    x="Age_Group",
+    y="Unique_Customers",
+    title="Customer Age Group Distribution",
+    text="Unique_Customers"
+)
+fig_age.update_layout(xaxis_title="Age Group", yaxis_title="Number of Customers")
 col8.plotly_chart(fig_age, use_container_width=True)
 
 st.divider()
