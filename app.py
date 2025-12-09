@@ -91,7 +91,7 @@ fig_month = px.line(
 )
 col7.plotly_chart(fig_month, use_container_width=True)
 
-fig_age = px.plotly_chart(
+fig_age = px.histogram(
     filtered_df,
     x="age",
     nbins=20,
