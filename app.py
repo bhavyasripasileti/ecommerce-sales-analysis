@@ -2,20 +2,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# ---------------------- PAGE CONFIG ---------------------- #
 st.set_page_config(
     page_title="E-Commerce Sales Dashboard",
     page_icon="🛒",
     layout="wide"
 )
 
-# ---------------------- DATA LOADING --------------------- #
 @st.cache_data
 def load_data():
-    # CSV is in the same folder as app.py
     df = pd.read_csv("customer_shopping_data.csv")
 
-    # Basic cleaning / feature engineering
     df["invoice_date"] = pd.to_datetime(df["invoice_date"], dayfirst=True, errors="coerce")
     df["Total_Amount"] = df["quantity"] * df["price"]
     df["Month"] = df["invoice_date"].dt.to_period("M").astype(str)
@@ -26,10 +22,8 @@ def load_data():
 
 df = load_data()
 
-# ---------------------- SIDEBAR -------------------------- #
 st.sidebar.title("🔧 Filters")
 
-# Date range filter
 min_date = df["invoice_date"].min()
 max_date = df["invoice_date"].max()
 date_range = st.sidebar.date_input(
@@ -39,7 +33,6 @@ date_range = st.sidebar.date_input(
     max_value=max_date.date()
 )
 
-# Gender filter
 genders = df["gender"].dropna().unique().tolist()
 selected_genders = st.sidebar.multiselect(
     "Gender",
@@ -47,7 +40,6 @@ selected_genders = st.sidebar.multiselect(
     default=genders
 )
 
-# Category filter
 categories = df["category"].dropna().unique().tolist()
 selected_categories = st.sidebar.multiselect(
     "Product Category",
@@ -55,7 +47,6 @@ selected_categories = st.sidebar.multiselect(
     default=categories
 )
 
-# Shopping mall filter
 malls = df["shopping_mall"].dropna().unique().tolist()
 selected_malls = st.sidebar.multiselect(
     "Shopping Mall",
@@ -63,7 +54,6 @@ selected_malls = st.sidebar.multiselect(
     default=malls
 )
 
-# Payment method filter
 payments = df["payment_method"].dropna().unique().tolist()
 selected_payments = st.sidebar.multiselect(
     "Payment Method",
@@ -71,7 +61,6 @@ selected_payments = st.sidebar.multiselect(
     default=payments
 )
 
-# Apply filters
 start_date, end_date = date_range
 mask = (
     (df["invoice_date"].dt.date >= start_date) &
@@ -84,7 +73,6 @@ mask = (
 
 filtered_df = df[mask].copy()
 
-# ---------------------- HEADER --------------------------- #
 st.title("🛒 E-Commerce Sales Dashboard")
 st.subheader("Customer Shopping Data Analysis – Bhavya Sri")
 
@@ -95,7 +83,6 @@ and **shopping trends** based on the E-commerce sales dataset.
 """
 )
 
-# ---------------------- KPI CARDS ------------------------ #
 total_revenue = filtered_df["Total_Amount"].sum()
 total_orders = filtered_df["invoice_no"].nunique()
 total_customers = filtered_df["customer_id"].nunique()
@@ -109,7 +96,6 @@ col4.metric("Avg. Order Value", f"${avg_order_value:,.2f}")
 
 st.markdown("---")
 
-# ---------------------- ROW 1: TIME & CATEGORY ----------- #
 left_col, right_col = st.columns(2)
 
 with left_col:
@@ -138,7 +124,6 @@ with right_col:
 
 st.markdown("---")
 
-# ---------------------- ROW 2: MALL & PAYMENT ------------ #
 left_col2, right_col2 = st.columns(2)
 
 with left_col2:
@@ -167,7 +152,6 @@ with right_col2:
 
 st.markdown("---")
 
-# ---------------------- ROW 3: CUSTOMER & AGE ------------ #
 c1, c2 = st.columns(2)
 
 with c1:
@@ -192,7 +176,6 @@ with c2:
 
 st.markdown("---")
 
-# ---------------------- DATA TABLE ----------------------- #
 st.markdown("### 📄 Filtered Transaction Details")
 st.dataframe(
     filtered_df[
