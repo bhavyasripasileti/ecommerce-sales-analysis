@@ -24,9 +24,8 @@
 
 ## 🌐 Live App
 
-> 🔗 **[Click here to explore the dashboard »](https://your-app-link-here.streamlit.app)**
+> 🔗 **[Click here to explore the dashboard »](https://ecommerce-sales-analysis-cyqc3pcyncscatnogyfxzw.streamlit.app)**
 
-> _(Replace the link above with your deployed Streamlit Cloud URL)_
 
 ---
 
@@ -228,7 +227,7 @@ To deploy your own instance:
 > B.Tech — Computer Science | Data Science & AI Enthusiast
 > Developed as part of an Industry Internship, demonstrating practical skills in data analysis, visualization, and deployment.
 
-[LinkedIn]](https://www.linkedin.com/in/bhavya-sri-pasileti-16565a2a1)
+[LinkedIn](https://www.linkedin.com/in/bhavya-sri-pasileti-16565a2a1)
 
 ---
 
