@@ -41,7 +41,7 @@ def load_data():
 df = load_data()
 
 # ------------------ HEADER ------------------
-st.title("🛒 E-Commerce Intelligence Dashboard")
+st.title("🛒 E-Commerce Sales Analysis Dashboard")
 st.caption("Analyze revenue trends, customer behavior, and business insights")
 
 # ------------------ SIDEBAR ------------------
