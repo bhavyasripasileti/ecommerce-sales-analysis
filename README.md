@@ -224,7 +224,7 @@ To deploy your own instance:
 
 **Bhavya Sri Pasileti**
 
-> B.Tech — Computer Science | Data Science & AI Enthusiast
+> Data Science & AI Enthusiast
 > Developed as part of an Industry Internship, demonstrating practical skills in data analysis, visualization, and deployment.
 
 [LinkedIn](https://www.linkedin.com/in/bhavya-sri-pasileti-16565a2a1)
